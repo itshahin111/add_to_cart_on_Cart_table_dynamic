@@ -17,6 +17,12 @@ class CartController extends Controller
 
         return view('carts.index', compact('carts', 'totalPrice'));
     }
+    public function TotalItems()
+    {
+        $products = Product::all();
+        return $products->count();
+
+    }
 
     public function add($productId)
     {

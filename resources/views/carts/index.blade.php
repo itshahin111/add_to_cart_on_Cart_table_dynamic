@@ -9,18 +9,90 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Add your styles here */
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .cart-header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cart-item img {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-action {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.875rem;
+        }
+
+        .btn-action:hover {
+            background-color: #0056b3;
+        }
+
+        .total-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+        <div class="d-flex w-100 px-3">
 
-    <div class="container">
-        <h1 class="text-center my-5">Your Cart</h1>
-        <div id="cart-list">
-            @include('carts.cart-items', ['carts' => $carts])
+            <a href="{{ url('/products') }}" class="btn btn-info">Show All Products
+            </a>
         </div>
-        <p class="text-end fw-bold fs-4">Total Price: $<span id="total-price">{{ $totalPrice }}</span></p>
+        </div>
+    </nav>
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <div class="cart-header">
+                <h1>Your Cart</h1>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div id="cart-list">
+                    @include('carts.cart-items', ['carts' => $carts])
+                </div>
+                <p class="text-end total-price mt-4">Total Price: $<span id="total-price">{{ $totalPrice }}</span></p>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
