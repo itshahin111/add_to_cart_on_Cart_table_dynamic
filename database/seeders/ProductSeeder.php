@@ -18,8 +18,8 @@ class ProductSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Generate 10 dummy products
-        for ($i = 1; $i <= 10; $i++) {
+        // Generate 30 dummy products
+        for ($i = 1; $i <= 30; $i++) {
             Product::create([
                 'title' => $faker->words(3, true), // Generates a random product title
                 'short_des' => $faker->sentence, // Generates a short description
@@ -29,7 +29,6 @@ class ProductSeeder extends Seeder
             ]);
         }
     }
-
     /**
      * Generate a dummy image and save it to the public path.
      *
