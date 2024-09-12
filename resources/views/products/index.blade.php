@@ -105,7 +105,8 @@
             <a class="navbar-brand" href="#">Home</a>
             <div class="dropdown">
                 <a href="{{ url('/cart') }}" class="btn btn-info">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge bg-danger">0</span>
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span
+                        class="badge bg-danger live_quantity">0</span>
                 </a>
             </div>
         </div>
@@ -151,6 +152,13 @@
 
                     messageElement.textContent = data.message; // Set the message text
                     messageContainer.style.display = 'block'; // Show the message
+
+                    // Update the live quantity
+                    const liveQuantity = document.querySelector('.live_quantity');
+                    liveQuantity.innerHTML = data.quantity;
+
+                    // document.querySelector('.live_quantity').innerHTML = 1;
+
 
                     // Hide the message after 0.80 seconds
                     setTimeout(() => {

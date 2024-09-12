@@ -26,21 +26,37 @@ class CartController extends Controller
 
     public function add($productId)
     {
+        // Find the product by its ID or fail if not found
         $product = Product::findOrFail($productId);
 
+        // Check if the product already exists in the cart
         $cart = Cart::where('product_id', $productId)->first();
+
         if ($cart) {
+            // If it exists, increment the quantity
             $cart->quantity += 1;
             $cart->save();
         } else {
+            // Otherwise, create a new cart item with quantity 1
             Cart::create([
                 'product_id' => $productId,
                 'quantity' => 1,
             ]);
         }
 
-        return response()->json(['message' => 'Product added to cart', 'html' => view('carts.cart-items', ['carts' => Cart::with('product')->get()])->render(), 'totalPrice' => Cart::with('product')->get()->sum(fn($cart) => $cart->product->price * $cart->quantity)]);
+        // Calculate the total quantity of all items in the cart
+        $totalQuantity = Cart::sum('quantity');
+
+        // Return a JSON response with a success message, total quantity, and other data
+        return response()->json([
+            'message' => 'Product added to cart',
+            'quantity' => $totalQuantity, // Include total quantity in response
+            'html' => view('carts.cart-items', ['carts' => Cart::with('product')->get()])->render(),
+            'totalPrice' => Cart::with('product')->get()->sum(fn($cart) => $cart->product->price * $cart->quantity),
+        ]);
     }
+
+
 
     public function increment($cartId)
     {
